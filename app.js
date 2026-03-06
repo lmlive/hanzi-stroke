@@ -167,6 +167,33 @@ class HanziStrokeApp {
                     gridColor: '#fecaca',
                     showStroke: true,
 
+                    charDataLoader: (char, onComplete, onError) => {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('GET', `https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${char}.json`);
+                        xhr.onreadystatechange = () => {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200) {
+                                    onComplete(JSON.parse(xhr.responseText));
+                                } else {
+                                    // 尝试备用源 (npmmirror)
+                                    const backupXhr = new XMLHttpRequest();
+                                    backupXhr.open('GET', `https://registry.npmmirror.com/-/binary/hanzi-writer-data/2.0.1/${char}.json`);
+                                    backupXhr.onreadystatechange = () => {
+                                        if (backupXhr.readyState === 4) {
+                                            if (backupXhr.status === 200) {
+                                                onComplete(JSON.parse(backupXhr.responseText));
+                                            } else {
+                                                onError(backupXhr);
+                                            }
+                                        }
+                                    };
+                                    backupXhr.send();
+                                }
+                            }
+                        };
+                        xhr.send();
+                    },
+
                     onLoadCharDataSuccess: (characterData) => {
                         this.strokeCount = characterData.strokes.length;
                         resolve();
