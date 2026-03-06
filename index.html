@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉字笔顺可视化工具</title>
+    <meta name="description" content="输入汉字，查看标准的笔顺动画，支持田字格显示和速度调节">
+    <link rel="stylesheet" href="hanzi-stroke.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">汉字笔顺可视化工具</h1>
+            <p class="app-subtitle">输入任意汉字，查看标准笔顺动画</p>
+        </header>
+
+        <section class="input-section">
+            <div class="input-wrapper">
+                <input type="text"
+                       id="char-input"
+                       class="char-input"
+                       maxlength="1"
+                       placeholder="请输入汉字"
+                       autocomplete="off">
+                <button id="search-btn" class="search-btn">
+                    <span class="btn-icon">🔍</span>
+                    <span class="btn-text">查询笔顺</span>
+                </button>
+            </div>
+            <p id="error-msg" class="error-msg"></p>
+        </section>
+
+        <section class="display-section">
+            <div class="character-container">
+                <div id="character-target" class="character-target">
+                    <div class="placeholder-text">
+                        <span class="placeholder-icon">✍️</span>
+                        <p>输入汉字后显示笔顺动画</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-controls">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="show-grid" checked>
+                    <span class="checkmark"></span>
+                    <span class="label-text">显示田字格</span>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="show-outline">
+                    <span class="checkmark"></span>
+                    <span class="label-text">显示轮廓</span>
+                </label>
+            </div>
+        </section>
+
+        <section class="controls-section">
+            <div class="control-group">
+                <button id="animate-btn" class="control-btn primary" disabled>
+                    <span class="btn-icon">▶️</span>
+                    <span>播放动画</span>
+                </button>
+                <button id="quiz-btn" class="control-btn secondary" disabled>
+                    <span class="btn-icon">✏️</span>
+                    <span>描红练习</span>
+                </button>
+                <button id="reset-btn" class="control-btn secondary" disabled>
+                    <span class="btn-icon">🔄</span>
+                    <span>重新播放</span>
+                </button>
+            </div>
+
+            <div class="speed-control">
+                <label for="speed-slider" class="speed-label">
+                    <span class="speed-icon">🚀</span>
+                    <span>动画速度</span>
+                </label>
+                <div class="slider-container">
+                    <span class="speed-mark">慢</span>
+                    <input type="range"
+                           id="speed-slider"
+                           class="speed-slider"
+                           min="1"
+                           max="5"
+                           value="3"
+                           step="1"
+                           disabled>
+                    <span class="speed-mark">快</span>
+                </div>
+                <span id="speed-value" class="speed-value">1.0x</span>
+            </div>
+        </section>
+
+        <section class="stroke-info-section" id="stroke-info">
+            <div class="stroke-counter">
+                <span class="stroke-label">总笔画数：</span>
+                <span id="stroke-count" class="stroke-number">-</span>
+            </div>
+            <div class="current-stroke">
+                <span class="stroke-label">当前笔画：</span>
+                <span id="current-stroke-num" class="stroke-number">-</span>
+            </div>
+        </section>
+
+        <section class="examples-section">
+            <h3 class="examples-title">常用汉字示例</h3>
+            <div class="example-chars">
+                <button class="example-btn" data-char="永">永</button>
+                <button class="example-btn" data-char="爱">爱</button>
+                <button class="example-btn" data-char="中">中</button>
+                <button class="example-btn" data-char="国">国</button>
+                <button class="example-btn" data-char="人">人</button>
+                <button class="example-btn" data-char="大">大</button>
+                <button class="example-btn" data-char="我">我</button>
+                <button class="example-btn" data-char="你">你</button>
+                <button class="example-btn" data-char="好">好</button>
+                <button class="example-btn" data-char="书">书</button>
+            </div>
+        </section>
+
+        <footer class="app-footer">
+            <p>数据来源：<a href="https://github.com/chanind/hanzi-writer" target="_blank" rel="noopener">Hanzi Writer</a></p>
+            <p>汉字笔顺数据基于 CC BY-NC-SA 4.0 协议</p>
+        </footer>
+    </main>
+
+    <!-- 加载指示器 -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">正在加载笔顺数据...</p>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
