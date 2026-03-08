@@ -175,9 +175,8 @@ class HanziStrokeApp {
                                 if (xhr.status === 200) {
                                     onComplete(JSON.parse(xhr.responseText));
                                 } else {
-                                    // 尝试备用源 (unpkg)
                                     const backupXhr = new XMLHttpRequest();
-                                    backupXhr.open('GET', `https://unpkg.com/hanzi-writer-data@2.0.1/${char}.json`);
+                                    backupXhr.open('GET', `https://registry.npmmirror.com/hanzi-writer-data/2.0.1/files/${char}.json`);
                                     backupXhr.onreadystatechange = () => {
                                         if (backupXhr.readyState === 4) {
                                             if (backupXhr.status === 200) {
