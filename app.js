@@ -169,14 +169,14 @@ class HanziStrokeApp {
 
                     charDataLoader: (char, onComplete, onError) => {
                         const xhr = new XMLHttpRequest();
-                        xhr.open('GET', `https://registry.npmmirror.com/hanzi-writer-data/2.0/files/${char}.json`);
+                        xhr.open('GET', `https://raw.githubusercontent.com/chanind/hanzi-writer-data/master/${char}.json`);
                         xhr.onreadystatechange = () => {
                             if (xhr.readyState === 4) {
                                 if (xhr.status === 200) {
                                     onComplete(JSON.parse(xhr.responseText));
                                 } else {
                                     const backupXhr = new XMLHttpRequest();
-                                    backupXhr.open('GET', `https://registry.npmmirror.com/hanzi-writer-data/2.0.1/files/${char}.json`);
+                                    backupXhr.open('GET', `https://raw.githubusercontent.com/chanind/hanzi-writer-data/2.0.1/${char}.json`);
                                     backupXhr.onreadystatechange = () => {
                                         if (backupXhr.readyState === 4) {
                                             if (backupXhr.status === 200) {
