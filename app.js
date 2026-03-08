@@ -169,7 +169,7 @@ class HanziStrokeApp {
 
                     charDataLoader: (char, onComplete, onError) => {
                         const xhr = new XMLHttpRequest();
-                        xhr.open('GET', `https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${char}.json`);
+                        xhr.open('GET', `https://registry.npmmirror.com/hanzi-writer-data/2.0/files/${char}.json`);
                         xhr.onreadystatechange = () => {
                             if (xhr.readyState === 4) {
                                 if (xhr.status === 200) {
